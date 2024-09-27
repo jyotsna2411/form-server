@@ -1,20 +1,20 @@
 const chromium = require("@sparticuz/chromium-min");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
 
 const isLocal = !!process.env.CHROME_EXECUTABLE_PATH;
 
 const handlePuppeteerTask = async (formdata, callback) => {
   try {
-    // const browser = await puppeteer.launch({
-    //   args: chromium.args,
-    //   defaultViewport: chromium.defaultViewport,
-    //   executablePath: await chromium.executablePath(
-    //     "https://realestatenewbucket.s3.amazonaws.com/chromium-v126.0.0-pack.tar"
-    //   ),
-    //   headless: chromium.headless,
-    //   ignoreHTTPSErrors: true,
-    // });
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(
+        "https://realestatenewbucket.s3.amazonaws.com/chromium-v126.0.0-pack.tar"
+      ),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    });
+    //const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
     // Navigate the page to a URL
