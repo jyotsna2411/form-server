@@ -1,20 +1,20 @@
 const chromium = require("@sparticuz/chromium-min");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
 
 const isLocal = !!process.env.CHROME_EXECUTABLE_PATH;
 
 const handlePuppeteerTask = async (formdata) => {
   try {
-    // const browser = await puppeteer.launch({
-    //   args: chromium.args,
-    //   defaultViewport: chromium.defaultViewport,
-    //   executablePath: await chromium.executablePath(
-    //     "https://realestatenewbucket.s3.amazonaws.com/chromium-v126.0.0-pack.tar"
-    //   ),
-    //   headless: chromium.headless,
-    //   ignoreHTTPSErrors: true,
-    // });
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(
+        "https://realestatenewbucket.s3.amazonaws.com/chromium-v126.0.0-pack.tar"
+      ),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    });
+    //const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
     // Navigate the page to a URL
@@ -91,59 +91,60 @@ const handlePuppeteerTask = async (formdata) => {
       'textarea[placeholder="Additional partner emails (please put one per line)"]'
     );
     await inputElement.type("claude@boirongroup.ca");
+
     inputElement = await page.$(
       "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div.c-button-container.content-item.has-button.content-item-shown > div > button"
     );
     await inputElement.click();
-    await page.waitForNetworkIdle();
-    inputElement = await page.$('input[placeholder="Property State*"]');
-    await inputElement.type(`${formdata.State}`);
-    inputElement = await page.$('input[placeholder="Property County*"]');
-    await inputElement.type(`${formdata.County}`);
-    inputElement = await page.$(
-      'input[placeholder="Property Address (If Available)"]'
-    );
-    await inputElement.type(`${formdata.Address}`);
-    inputElement = await page.$('input[placeholder="APN*"]');
-    await inputElement.type(`${formdata.APN}`);
-    inputElement = await page.$('input[placeholder="Lot Size (in Acres)*"]');
-    await inputElement.type(`${formdata.LotSize}`);
-    inputElement = await page.$('input[placeholder="Purchase Price*"]');
-    await inputElement.type(`${formdata.ContractPrice}`);
-    inputElement = await page.$('input[placeholder="Predicted Sales Price*"]');
-    await inputElement.type(`${formdata.SalePrice}`);
-    await page.focus('input[placeholder="Select date"]');
-    inputElement = await page.$('input[placeholder="Select date"]');
-    await page.$eval('input[placeholder="Select date"]', (e) =>
-      e.removeAttribute("readonly")
-    );
-    await inputElement.type(`${formdata.ClosingDate}`);
-    inputElement = await page.$(
-      "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div:nth-child(11) > div > div.c-input-container > textarea.e-freetxt-answer"
-    );
-    await inputElement.type(`${formdata.SaleTimeline}`);
-    inputElement = await page.$(
-      "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div:nth-child(12) > div > div.c-input-container > textarea.e-freetxt-answer"
-    );
-    await inputElement.type(`${formdata.SolcComps}`);
-    inputElement = await page.$(
-      "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div:nth-child(13) > div > div.c-input-container > textarea.e-freetxt-answer"
-    );
-    await inputElement.type(`${formdata.SaleComps}`);
-    inputElement = await page.$(
-      "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div:nth-child(14) > div > div.c-input-container > textarea.e-freetxt-answer"
-    );
-    await inputElement.type(`${formdata.AdditionalInfo}`);
-    inputElement = await page.$(
-      "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div.c-button-container.content-item.has-button.content-item-shown > div > button"
-    );
+
+    // inputElement = await page.$('input[placeholder="Property State*"]');
+    // await inputElement.type(`${formdata.State}`);
+    // inputElement = await page.$('input[placeholder="Property County*"]');
+    // await inputElement.type(`${formdata.County}`);
+    // inputElement = await page.$(
+    //   'input[placeholder="Property Address (If Available)"]'
+    // );
+    // await inputElement.type(`${formdata.Address}`);
+    // inputElement = await page.$('input[placeholder="APN*"]');
+    // await inputElement.type(`${formdata.APN}`);
+    // inputElement = await page.$('input[placeholder="Lot Size (in Acres)*"]');
+    // await inputElement.type(`${formdata.LotSize}`);
+    // inputElement = await page.$('input[placeholder="Purchase Price*"]');
+    // await inputElement.type(`${formdata.ContractPrice}`);
+    // inputElement = await page.$('input[placeholder="Predicted Sales Price*"]');
+    // await inputElement.type(`${formdata.SalePrice}`);
+    // await page.focus('input[placeholder="Select date"]');
+    // inputElement = await page.$('input[placeholder="Select date"]');
+    // await page.$eval('input[placeholder="Select date"]', (e) =>
+    //   e.removeAttribute("readonly")
+    // );
+    // await inputElement.type(`${formdata.ClosingDate}`);
+    // inputElement = await page.$(
+    //   "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div:nth-child(11) > div > div.c-input-container > textarea.e-freetxt-answer"
+    // );
+    // await inputElement.type(`${formdata.SaleTimeline}`);
+    // inputElement = await page.$(
+    //   "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div:nth-child(12) > div > div.c-input-container > textarea.e-freetxt-answer"
+    // );
+    // await inputElement.type(`${formdata.SolcComps}`);
+    // inputElement = await page.$(
+    //   "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div:nth-child(13) > div > div.c-input-container > textarea.e-freetxt-answer"
+    // );
+    // await inputElement.type(`${formdata.SaleComps}`);
+    // inputElement = await page.$(
+    //   "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div:nth-child(14) > div > div.c-input-container > textarea.e-freetxt-answer"
+    // );
+    // await inputElement.type(`${formdata.AdditionalInfo}`);
+    // inputElement = await page.$(
+    //   "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div.c-button-container.content-item.has-button.content-item-shown > div > button"
+    // );
     page.on("dialog", async (dialog) => {
       console.log("here");
       await dialog.accept();
     });
 
-    // //Submit button for us land funders
-    // await inputElement.click();
+    // // //Submit button for us land funders
+    // // await inputElement.click();
 
     //Pete form
     await page.goto("https://partnerwithpete.com/", {

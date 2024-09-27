@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const handlePuppeteerTask = require("./puppeteer");
+const sendEmail = require("./email");
 const path = require("path");
 
 const app = express();
@@ -16,6 +17,7 @@ app.post("/", async (req, res) => {
     const result = await handlePuppeteerTask(req.body);
     if (result.success) {
       res.status(200).json({ message: "Form Submitted Successfully" });
+      sendEmail(req.body);
     } else {
       console.error("Error Response:", result.error);
       res
