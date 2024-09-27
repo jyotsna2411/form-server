@@ -4,15 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "node app.js",
-    "build": "next build",
-    "start": "next start",
+    "build": "node app.js",
+    "start": "node app.js",
     "lint": "eslint ."
   },
   "dependencies": {
     "@sparticuz/chromium": "^127.0.0",
     "@sparticuz/chromium-min": "^126.0.0",
     "axios": "^1.7.7",
-    "cors": "^2.8.5",
     "fs": "^0.0.1-security",
     "puppeteer-core": "^22.13.1"
   },

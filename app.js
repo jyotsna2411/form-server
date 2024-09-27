@@ -3,7 +3,7 @@ const cors = require("cors");
 const handlePuppeteerTask = require("./puppeteer");
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(cors());
