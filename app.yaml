@@ -1,5 +1,7 @@
 runtime: nodejs
 env: flex
+env variables:
+   SEND_GRID_API:"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"
 runtime_config:
       operating_system: "ubuntu22"
       runtime_version: "20"

@@ -1,7 +1,7 @@
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(
-  "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"
-);
+// sgMail.setApiKey(
+//   "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"
+// );
 
 const createmsg = (data) => {
   return {
@@ -32,14 +32,15 @@ Any other thoughts or issues?:${data.AdditionalInfo} `,
 };
 const sendEmail = async (data) => {
   msg = createmsg(data);
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log("Email sent");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  console.log("Message Sent");
+  //   sgMail
+  //     .send(msg)
+  //     .then(() => {
+  //       console.log("Email sent");
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
 };
 
 module.exports = sendEmail;
