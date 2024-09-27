@@ -25,7 +25,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "express": "^4.21.0",
-    "postcss": "^8",
+    "postcss": "^8"
   },
   "browser": {
     "fs": false,
