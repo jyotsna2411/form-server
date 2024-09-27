@@ -1,35 +1,28 @@
 {
-  "name": "autoform",
-  "version": "0.1.0",
-  "private": true,
+  "name": "form-server",
+  "version": "1.0.0",
+  "main": "app.js",
   "scripts": {
-    "dev": "node app.js",
-    "build": "node app.js",
-    "start": "node app.js",
-    "lint": "eslint ."
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app.js"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^127.0.0",
     "@sparticuz/chromium-min": "^126.0.0",
     "axios": "^1.7.7",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "puppeteer": "^23.4.1",
     "puppeteer-core": "^22.13.1",
-    "puppeteer": "^23.4.1"
+    "express": "^4.21.0"
   },
   "devDependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mui/material": "^6.1.1",
-    "@types/node": "22.5.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
-    "express": "^4.21.0",
     "postcss": "^8"
   },
-  "browser": {
-    "fs": false,
-    "path": false,
-    "os": false
-  }
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

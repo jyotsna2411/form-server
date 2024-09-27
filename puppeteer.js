@@ -1,20 +1,20 @@
 const chromium = require("@sparticuz/chromium-min");
-const puppeteer = require("puppeteer-core");
+const puppeteer = require("puppeteer");
 
 const isLocal = !!process.env.CHROME_EXECUTABLE_PATH;
 
-const handlePuppeteerTask = async (formdata, callback) => {
+const handlePuppeteerTask = async (formdata) => {
   try {
-    const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(
-        "https://realestatenewbucket.s3.amazonaws.com/chromium-v126.0.0-pack.tar"
-      ),
-      headless: chromium.headless,
-      ignoreHTTPSErrors: true,
-    });
-    //const browser = await puppeteer.launch({ headless: false });
+    // const browser = await puppeteer.launch({
+    //   args: chromium.args,
+    //   defaultViewport: chromium.defaultViewport,
+    //   executablePath: await chromium.executablePath(
+    //     "https://realestatenewbucket.s3.amazonaws.com/chromium-v126.0.0-pack.tar"
+    //   ),
+    //   headless: chromium.headless,
+    //   ignoreHTTPSErrors: true,
+    // });
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
     // Navigate the page to a URL
@@ -80,17 +80,17 @@ const handlePuppeteerTask = async (formdata, callback) => {
     let inputElement = await page.$(
       "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div.c-data-collection-container.content-item.is-snappable.has-datacollection.c-data-collection-container-0cykqof.content-item-shown-first.content-item-shown > div > form > div:nth-child(1) > label > input"
     );
-    await inputElement.type("John", { delay: 100 });
+    await inputElement.type("Charlie", { delay: 100 });
     inputElement = await page.$('input[placeholder="Last Name"]');
-    await inputElement.type("Doe", { delay: 100 });
+    await inputElement.type("Steele", { delay: 100 });
     inputElement = await page.$('input[placeholder="Email*"]');
-    await inputElement.type("johndoe@gmail.com", { delay: 100 });
+    await inputElement.type("closing@cashlandbuyerusa.com", { delay: 100 });
     inputElement = await page.$('input[placeholder="Phone*"]');
-    await inputElement.type("1234567890");
+    await inputElement.type("302-214-5514");
     inputElement = await page.$(
       'textarea[placeholder="Additional partner emails (please put one per line)"]'
     );
-    await inputElement.type("North Carolina");
+    await inputElement.type("claude@boirongroup.ca");
     inputElement = await page.$(
       "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div.c-button-container.content-item.has-button.content-item-shown > div > button"
     );
@@ -137,6 +137,10 @@ const handlePuppeteerTask = async (formdata, callback) => {
     inputElement = await page.$(
       "body > div.v-app-main > div.standalone-project-main.iv-body.vcentered.center-center > div > div.c-button-container.content-item.has-button.content-item-shown > div > button"
     );
+    page.on("dialog", async (dialog) => {
+      console.log("here");
+      await dialog.accept();
+    });
 
     // //Submit button for us land funders
     // await inputElement.click();
@@ -151,12 +155,12 @@ const handlePuppeteerTask = async (formdata, callback) => {
     inputElement = await page.$('input[placeholder="Investor Last Name"]');
     await inputElement.type(" Steele", { delay: 250 });
     inputElement = await page.$('input[placeholder="Investor Company Name"]');
-    await inputElement.type("closing@cashlandbuyerusa");
+    await inputElement.type("Cash Land Buyer USA LLC");
 
     inputElement = await page.$(
       'input[placeholder="Select country to left (flag) and enter number"]'
     );
-    await inputElement.type("(647)685-2107");
+    await inputElement.type("(302)214-5514");
     inputElement = await page.$('input[placeholder="Investor Email"]');
     await inputElement.type("closing@cashlandbuyerusa.com");
 
@@ -224,7 +228,7 @@ const handlePuppeteerTask = async (formdata, callback) => {
     inputElement = await page.$(
       "#reactViewRoot > div > div > div > div > div.flex.flex-auto > main > div > div > div > div > div > div.width-full > div.grid.gap3.colors-background-default.rounded-big.relative.mr-auto.ml-auto.css-1na73vl > div.mn2.p2.rounded-big > div > div > div > div.flex.mt2-and-half.owl-gapx2-and-half > div > div:nth-child(1) > div:nth-child(3) > div > div > div > div:nth-child(2) > div > div > div > input"
     );
-    await inputElement.type("6476852107");
+    await inputElement.type("3022145514");
     //county, state
     inputElement = await page.$(
       "#reactViewRoot > div > div > div > div > div.flex.flex-auto > main > div > div > div > div > div > div.width-full > div.grid.gap3.colors-background-default.rounded-big.relative.mr-auto.ml-auto.css-1na73vl > div.mn2.p2.rounded-big > div > div > div > div.flex.mt2-and-half.owl-gapx2-and-half > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(2) > div > div > div > textarea"
@@ -276,27 +280,54 @@ const handlePuppeteerTask = async (formdata, callback) => {
       "#reactViewRoot > div > div > div > div > div.flex.flex-auto > main > div > div > div > div > div > div.width-full > div.grid.gap3.colors-background-default.rounded-big.relative.mr-auto.ml-auto.css-1na73vl > div.mn2.p2.rounded-big > div > div > div > div.flex.mt2-and-half.owl-gapx2-and-half > div > div:nth-child(4) > div:nth-child(3) > div > div > div > div:nth-child(2) > div > div > div > div > div.contentEditableTextbox.light-scrollbar.ignore-baymax-defaults.pb3"
     );
     await inputElement.type(`${formdata.AdditionalInfo}`, { delay: 200 });
-    //submit button
-    // inputElement = await page.$(
-    //   "  #reactViewRoot > div > div > div > div > div.flex.flex-auto > main > div > div > div > div > div > div.css-jcpkb3 > div > div.flex.items-center.height-full > div > div.flex-none.flex > button"
-    // );
-    // await inputElement.click();
+    // //submit button
+    inputElement = await page.$(
+      "  #reactViewRoot > div > div > div > div > div.flex.flex-auto > main > div > div > div > div > div > div.css-jcpkb3 > div > div.flex.items-center.height-full > div > div.flex-none.flex > button"
+    );
+    await inputElement.click();
 
     // Serious Land Capital
-    // await page.goto(
-    //   "https://seriousland.capital/?fbclid=IwZXh0bgNhZW0CMTAAAR0myXwb3Il8HwGFFkBBPvr7MKEdwEE6fat7VdBl_pxUAsJHRKfC7QD5T_k_aem_wv4sCKJj4fc_bA54_wwz8g",
-    //   {
-    //     waitUntil: "networkidle2",
-    //   }
-    // );
-    // inputElement = await page.$(
-    //   +"#content > div > div.elementor.elementor-8.elementor-motion-effects-parent > div.elementor-element.elementor-element-b10453f.e-flex.e-con-boxed.e-con.e-parent.e-lazyloaded > div.e-con-inner > div.elementor-element.elementor-element-ff708bc.elementor-align-center.elementor-widget.elementor-widget-button > div > div > a"
-    // );
-    // await inputElement.click();
+    await page.goto(
+      "https://seriousland.capital/?fbclid=IwZXh0bgNhZW0CMTAAAR0myXwb3Il8HwGFFkBBPvr7MKEdwEE6fat7VdBl_pxUAsJHRKfC7QD5T_k_aem_wv4sCKJj4fc_bA54_wwz8g",
+      {
+        waitUntil: "networkidle2",
+      }
+    );
+    await page.waitForSelector(
+      "body > div.cky-consent-container.cky-box-bottom-left > div"
+    );
+    await page.click(
+      "body > div.cky-consent-container.cky-box-bottom-left > div > div > div > div.cky-notice-btn-wrapper > button.cky-btn.cky-btn-accept"
+    );
+    await page.waitForSelector(
+      "#content > div > div.elementor.elementor-8.elementor-motion-effects-parent > div.elementor-element.elementor-element-b10453f.e-flex.e-con-boxed.e-con.e-parent.e-lazyloaded > div.e-con-inner > div.elementor-element.elementor-element-ff708bc.elementor-align-center.elementor-widget.elementor-widget-button > div > div > a"
+    );
+    inputElement = await page.$(
+      "#content > div > div.elementor.elementor-8.elementor-motion-effects-parent > div.elementor-element.elementor-element-b10453f.e-flex.e-con-boxed.e-con.e-parent.e-lazyloaded > div.e-con-inner > div.elementor-element.elementor-element-ff708bc.elementor-align-center.elementor-widget.elementor-widget-button > div > div > a"
+    );
+    await inputElement.click();
 
+    await page.waitForSelector("#form-field-name");
+    await page.type("#form-field-name", "Charlie Steele", { delay: 200 });
+    await page.type("#form-field-email", "closing@cashlandbuyerusa.com", {
+      delay: 200,
+    });
+    await page.type("#form-field-field_cad26c5", "302-214-5514");
+    await page.type("#form-field-field_1a77252", `${formdata.APN}`);
+    await page.type("#form-field-field_b37444c", `${formdata.County}`);
+    await page.type("#form-field-field_a6bd881", `${formdata.State}`);
+    await page.type("#form-field-field_74c5eac", `${formdata.ContractPrice}`);
+    await page.click('input[type="radio"][value="Yes"]');
+
+    await page.type("#form-field-field_f9fafe8", `${formdata.SalePrice}`);
+    await page.type("#form-field-field_483d60f", `${formdata.ClosingDate}`);
+    await page.type("#form-field-field_ae9fc43", "Facebook");
+    //Submit button
+    // await page.click("#elementor-popup-modal-183 > div > div.dialog-message.dialog-lightbox-message > div > div > div > div > div.elementor-element.elementor-element-becab0c.elementor-widget__width-initial.elementor-button-align-stretch.elementor-widget.elementor-widget-form > div > form > div > div.elementor-field-group.elementor-column.elementor-field-type-submit.elementor-col-100.e-form__buttons > button")
     await browser.close();
   } catch (err) {
-    callback(err); // Failure
+    console.log(err); // Failure
+    return { success: false, error: err.message };
   }
 };
 

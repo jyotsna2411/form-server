@@ -1,20 +1,32 @@
 const express = require("express");
 const cors = require("cors");
 const handlePuppeteerTask = require("./puppeteer");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(cors());
-
-app.post("/api/form", async (req, res) => {
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname) + "/views/index.html");
+});
+app.post("/", async (req, res) => {
   try {
-    await handlePuppeteerTask(req.body);
-    res.status(200).json({ message: "Form Submitted Successfully" });
+    const result = await handlePuppeteerTask(req.body);
+    if (result.success) {
+      res.status(200).json({ message: "Form Submitted Successfully" });
+    } else {
+      console.error("Error Response:", result.error);
+      res
+        .status(422)
+        .json({ message: "Form submission failed", error: result.error });
+    }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error triggering Puppeteer" });
+    console.error("Server Error:", err);
+    res
+      .status(500)
+      .json({ message: "Error triggering Puppeteer", error: err.message });
   }
 });
 
